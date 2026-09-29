@@ -154,6 +154,8 @@ Errors use a consistent structure containing timestamp, HTTP status, safe messag
 
 ## Jenkins pipeline
 
+Two Jenkins jobs are verified: `CrimeWatch-Freestyle` provides the Experiment 4 checkout/build/test/report/archive flow, while `CrimeWatch-Pipeline` performs the complete CI/CD lifecycle below. Both watch GitHub `main` automatically through the localhost-safe polling fallback.
+
 The `Jenkinsfile` performs real work in this order:
 
 1. Checkout
@@ -231,8 +233,8 @@ Ubuntu:
 | 1 | Git setup, repository initialization, ignore rules |
 | 2 | Remote synchronization and fetch-versus-pull demonstration |
 | 3 | Branch strategy and safe merge-conflict exercise |
-| 4 | Jenkins Freestyle instructions and real build/test commands |
-| 5 | Executable declarative `Jenkinsfile` |
+| 4 | Verified Jenkins Freestyle checkout/build/test/report/archive job |
+| 5 | Verified executable declarative `Jenkinsfile` pipeline |
 | 6 | GitHub webhook setup instructions and verified localhost polling fallback |
 | 7 | Reproducible Docker lifecycle script |
 | 8 | Standard versus optimized application Dockerfiles |

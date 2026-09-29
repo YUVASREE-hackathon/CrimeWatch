@@ -29,6 +29,8 @@ This log records commands actually executed during construction. Add subsequent 
 | 2026-09-29 | 2/13 | PowerShell/GitHub | `git push origin main develop` | Publish CrimeWatch source and Jenkins fixes | Remote branches advance | Passed: `main` and `develop` advanced to `bd18dba` |
 | 2026-09-29 | 6 | Jenkins Git Polling Log | Scheduled SCM poll | Detect a GitHub push automatically | New revision and `Changes found` | Passed: commits `0f3f5c8` and `bd18dba` were detected; builds #6 and #7 started automatically |
 | 2026-09-29 | 5/10/13 | Jenkins | `CrimeWatch-Pipeline` build #7 | Run full CI/CD pipeline | Tests, images, deployment, and health pass | Passed: 9 backend + 4 frontend tests published, Ansible syntax valid, four containers healthy, frontend HTTP 200, `Finished: SUCCESS` |
+| 2026-09-29 | 4 | Jenkins | `CrimeWatch-Freestyle` build #2 | Verify the separate Freestyle CI experiment | Checkout, build, tests, reports, and artifacts pass | Passed on commit `567c249`: 9 backend + 4 frontend tests, JAR/Vite build, JUnit publication, artifact archive, `Finished: SUCCESS` |
+| 2026-09-29 | 5/13 | Jenkins | `CrimeWatch-Pipeline` build #8 | Revalidate the documented GitHub tip automatically | Complete pipeline remains green | Passed on commit `567c249`: Ansible validation, healthy deployment, HTTP 200, `Finished: SUCCESS` |
 
 ## Fields for future entries
 

@@ -9,8 +9,8 @@ The GitHub repository, `main`/`develop` pushes, Jenkins Pipeline-from-SCM job, a
 
 ## Jenkins
 
-1. Create and capture the Freestyle job using Experiment 4 if that separate lab screen is required.
-2. Capture Pipeline build #7, its Tests page, polling cause, console success, and Stage View.
+1. Capture Freestyle build #2, its Tests page, polling cause, console success, configuration, and artifacts.
+2. Capture Pipeline build #8, its Tests page, polling cause, console success, and Stage View.
 3. The public repository needs no Jenkins credential. Add credentials only if the repository is later made private, and never expose them in screenshots.
 
 ## Docker Desktop
