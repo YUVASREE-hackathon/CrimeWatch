@@ -163,10 +163,11 @@ The `Jenkinsfile` performs real work in this order:
 5. Run backend and frontend tests in parallel
 6. Publish JUnit reports
 7. Build Docker images
-8. Deploy using Ansible
-9. Verify backend and frontend health
+8. Validate the Ansible deployment definition
+9. Deploy through Ansible on Linux agents or Docker Compose on the Windows service agent
+10. Verify backend and frontend health
 
-Jenkins must have the Maven tool named `Maven 3`, Git, Node/npm, Docker CLI access, and permission to use Docker. On Windows, the Jenkins service also needs access to WSL Ubuntu for the Ansible stage. See `docs/experiment-05-jenkins-pipeline.md`.
+Jenkins must have the Maven tool named `Maven 3`, Git, Node/npm, Docker CLI access, and permission to use Docker. The Windows Jenkins service runs as `LocalSystem`, which WSL intentionally rejects. The pipeline therefore validates the real Ansible playbook in a small pinned container, deploys the same Compose release directly on Windows, and runs live health checks. Linux Jenkins agents execute the Ansible deployment itself. This avoids requiring an interactive user session while keeping the delivery fully automatic. See `docs/experiment-05-jenkins-pipeline.md`.
 
 ## Git and GitHub workflow
 

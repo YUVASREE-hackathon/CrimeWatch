@@ -11,6 +11,12 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '20'))
     }
 
+    triggers {
+        // GitHub webhooks work when Jenkins has a public URL. Polling is the
+        // automatic fallback for this localhost lab installation.
+        pollSCM('H/2 * * * *')
+    }
+
     environment {
         COMPOSE_PROJECT_NAME = 'crimewatch'
         IMAGE_TAG = "build-${BUILD_NUMBER}"
@@ -64,13 +70,29 @@ pipeline {
             }
         }
 
-        stage('Deploy with Ansible') {
+        stage('Validate Ansible') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'ansible-playbook -i ansible/inventory ansible/playbook.yml --syntax-check'
+                    } else {
+                        bat '''"%DOCKER_EXE%" build -t crimewatch/ansible-runner:%IMAGE_TAG% -f ansible/Dockerfile ansible
+"%DOCKER_EXE%" run --rm --mount "type=bind,source=%WORKSPACE%,target=/workspace" -w /workspace crimewatch/ansible-runner:%IMAGE_TAG% -i ansible/inventory ansible/playbook.yml --syntax-check'''
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
             steps {
                 script {
                     if (isUnix()) {
                         sh 'ansible-playbook -i ansible/inventory ansible/playbook.yml -e crimewatch_project_dir=$WORKSPACE'
                     } else {
-                        bat '''@for /f "delims=" %%i in ('wsl -d Ubuntu wslpath -a "%WORKSPACE%"') do @wsl -d Ubuntu -e bash -lc "cd '%%i' && ansible-playbook -i ansible/inventory ansible/playbook.yml -e crimewatch_project_dir='%%i'"'''
+                        // Windows services run as LocalSystem, and WSL refuses
+                        // LocalSystem sessions. Compose is the reliable deploy
+                        // adapter after the same Ansible playbook is validated.
+                        bat '"%DOCKER_COMPOSE_EXE%" up -d --build --remove-orphans --wait'
                     }
                 }
             }
