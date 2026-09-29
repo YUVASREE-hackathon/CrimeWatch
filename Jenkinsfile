@@ -14,6 +14,7 @@ pipeline {
     environment {
         COMPOSE_PROJECT_NAME = 'crimewatch'
         IMAGE_TAG = "build-${BUILD_NUMBER}"
+        PATH+DOCKER = 'C:\\Users\\thira\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin'
     }
 
     stages {
