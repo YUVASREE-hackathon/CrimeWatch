@@ -6,7 +6,7 @@ Run backend and frontend tests, publish JUnit reports, and demonstrate that a fa
 
 ## Requirements
 
-Maven Wrapper or `Maven_3`, Node/npm, and installed frontend packages.
+Maven Wrapper or Jenkins tool `Maven 3`, Node/npm, and installed frontend packages.
 
 ## Commands
 

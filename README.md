@@ -166,7 +166,7 @@ The `Jenkinsfile` performs real work in this order:
 8. Deploy using Ansible
 9. Verify backend and frontend health
 
-Jenkins must have the Maven tool named `Maven_3`, Git, Node/npm, Docker CLI access, and permission to use Docker. On Windows, the Jenkins service also needs access to WSL Ubuntu for the Ansible stage. See `docs/experiment-05-jenkins-pipeline.md`.
+Jenkins must have the Maven tool named `Maven 3`, Git, Node/npm, Docker CLI access, and permission to use Docker. On Windows, the Jenkins service also needs access to WSL Ubuntu for the Ansible stage. See `docs/experiment-05-jenkins-pipeline.md`.
 
 ## Git and GitHub workflow
 

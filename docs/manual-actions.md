@@ -12,7 +12,7 @@ CrimeWatch source and local automation can be built automatically. The following
 
 ## Jenkins
 
-1. Confirm `Maven_3` under **Manage Jenkins → Tools**.
+1. Confirm `Maven 3` under **Manage Jenkins → Tools**.
 2. Ensure the Jenkins service can execute `node`, `npm`, `docker`, `wsl`, and `git`.
 3. Create the Freestyle job using Experiment 4.
 4. Create the Pipeline-from-SCM job using Experiment 5.

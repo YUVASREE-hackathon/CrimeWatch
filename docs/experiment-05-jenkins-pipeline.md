@@ -6,7 +6,7 @@ Execute the repository `Jenkinsfile` as a real build, test, containerization, An
 
 ## Requirements
 
-Jenkins Maven tool named `Maven_3`; Git, Node/npm, Docker CLI and WSL Ubuntu visible to the Jenkins Windows service.
+Jenkins Maven tool named `Maven 3`; Git, Node/npm, Docker CLI and WSL Ubuntu visible to the Jenkins Windows service.
 
 ## Configuration
 

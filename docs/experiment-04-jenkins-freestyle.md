@@ -6,7 +6,7 @@ Configure Jenkins to check out CrimeWatch, build both applications, run real tes
 
 ## Requirements
 
-Jenkins 2.573, Git, the global Maven tool `Maven_3`, Node/npm, and a GitHub repository URL.
+Jenkins 2.573, Git, the global Maven tool `Maven 3`, Node/npm, and a GitHub repository URL.
 
 ## Configuration
 
