@@ -24,7 +24,7 @@ CrimeWatch is a realistic full-stack DevOps laboratory project for secure incide
 ## Architecture
 
 ```text
-Developer → Git → GitHub → Webhook → Jenkins
+Developer → Git → GitHub → Webhook / verified SCM polling fallback → Jenkins
                                       │
                     Checkout → Build → Test
                                       │
@@ -233,7 +233,7 @@ Ubuntu:
 | 3 | Branch strategy and safe merge-conflict exercise |
 | 4 | Jenkins Freestyle instructions and real build/test commands |
 | 5 | Executable declarative `Jenkinsfile` |
-| 6 | GitHub webhook setup, verification, and offline polling fallback |
+| 6 | GitHub webhook setup instructions and verified localhost polling fallback |
 | 7 | Reproducible Docker lifecycle script |
 | 8 | Standard versus optimized application Dockerfiles |
 | 9 | Compose deployment, Java container, networks, health checks, volumes |

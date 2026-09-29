@@ -36,7 +36,7 @@ Final run: 9 backend tests and 4 frontend tests pass with zero failures. A delib
 
 ## Actual result
 
-On 2026-09-29 the frontend suite passed 4/4. The first backend run found a nullable timeline-schema defect; it was fixed and the second backend run passed 9/9. This is genuine failure-detection and repair evidence.
+On 2026-09-29 the frontend suite passed 4/4. The first backend run found a nullable timeline-schema defect; it was fixed and the second backend run passed 9/9. Jenkins build #7 reran both suites, published their JUnit XML reports, exposed the Tests page, and completed successfully. Earlier Jenkins failures blocked downstream stages until each real environment/deployment defect was repaired.
 
 ## Screenshots
 
@@ -44,5 +44,5 @@ Capture both local final test summaries, Jenkins test stage/report, one controll
 
 ## Result
 
-Local automated tests pass. Jenkins publication remains to be captured after job execution.
+Verified locally and in Jenkins: 9 backend tests and 4 frontend tests pass, and Jenkins publishes the reports.
 

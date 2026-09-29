@@ -1,28 +1,22 @@
-# Manual Actions Still Requiring Your Accounts or UI
+# Manual Actions and Remaining Optional Evidence
 
-CrimeWatch source and local automation can be built automatically. The following actions require your authenticated accounts or Windows UI and must not be presented as completed until you perform and capture them.
+The GitHub repository, `main`/`develop` pushes, Jenkins Pipeline-from-SCM job, automatic SCM polling, successful pipeline, Docker deployment, test publication, and health checks are complete. Only optional policy changes and report screenshots remain manual.
 
 ## GitHub
 
-1. Create an empty repository named `crimewatch`.
-2. Add the displayed HTTPS URL as `origin`.
-3. Push `main` and `develop`.
-4. Configure branch protection if permitted.
-5. Configure and verify the webhook using Experiment 6.
+1. Optionally configure branch protection if the organization permits it.
+2. To demonstrate a real webhook instead of the verified polling fallback, expose Jenkins through an institution-approved reachable URL and follow Experiment 6. Do not expose localhost with an unapproved tunnel.
 
 ## Jenkins
 
-1. Confirm `Maven 3` under **Manage Jenkins → Tools**.
-2. Ensure the Jenkins service can execute `node`, `npm`, `docker`, `wsl`, and `git`.
-3. Create the Freestyle job using Experiment 4.
-4. Create the Pipeline-from-SCM job using Experiment 5.
-5. Add repository credentials without exposing them in screenshots.
-6. Run and capture a successful build plus the controlled failure/recovery exercise.
+1. Create and capture the Freestyle job using Experiment 4 if that separate lab screen is required.
+2. Capture Pipeline build #7, its Tests page, polling cause, console success, and Stage View.
+3. The public repository needs no Jenkins credential. Add credentials only if the repository is later made private, and never expose them in screenshots.
 
 ## Docker Desktop
 
 1. Keep the engine running.
-2. Keep Ubuntu WSL integration enabled.
+2. Keep Ubuntu WSL integration enabled for interactive Ansible demonstrations. Jenkins itself uses the service-safe containerized validation path documented in Experiment 5.
 3. Verify host ports 3000, 18080, and 15432 are available.
 
 ## Screenshot capture

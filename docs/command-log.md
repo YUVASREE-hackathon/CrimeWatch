@@ -26,6 +26,9 @@ This log records commands actually executed during construction. Add subsequent 
 | 2026-09-29 | 12 | Ubuntu WSL | Repeat Ansible deployment | Verify idempotency | No changes required | Passed: `changed=0`, `failed=0` |
 | 2026-09-29 | 10 | Browser | Admin sign-in through `http://localhost:3000` | Verify browser authentication and dashboard | Dashboard loads | First attempt exposed missing public CORS origin; configuration fixed and repeat passed with 30-report dashboard |
 | 2026-09-29 | 13 | PowerShell | `.\\scripts\\validate-project.ps1 -RunTests` | Run final integrated validation gate | Services, health, and tests pass | Passed: four containers, backend health, 9 backend tests, and 4 frontend tests |
+| 2026-09-29 | 2/13 | PowerShell/GitHub | `git push origin main develop` | Publish CrimeWatch source and Jenkins fixes | Remote branches advance | Passed: `main` and `develop` advanced to `bd18dba` |
+| 2026-09-29 | 6 | Jenkins Git Polling Log | Scheduled SCM poll | Detect a GitHub push automatically | New revision and `Changes found` | Passed: commits `0f3f5c8` and `bd18dba` were detected; builds #6 and #7 started automatically |
+| 2026-09-29 | 5/10/13 | Jenkins | `CrimeWatch-Pipeline` build #7 | Run full CI/CD pipeline | Tests, images, deployment, and health pass | Passed: 9 backend + 4 frontend tests published, Ansible syntax valid, four containers healthy, frontend HTTP 200, `Finished: SUCCESS` |
 
 ## Fields for future entries
 
