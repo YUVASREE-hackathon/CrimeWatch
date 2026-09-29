@@ -104,7 +104,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'curl --fail --retry 12 --retry-delay 5 http://localhost:18080/actuator/health && curl --fail http://localhost:3000/'
                     } else {
-                        powershell '$h = Invoke-RestMethod http://localhost:18080/actuator/health; if ($h.status -ne "UP") { throw "Backend unhealthy" }; (Invoke-WebRequest http://localhost:3000/).StatusCode'
+                        powershell '$h = Invoke-RestMethod http://localhost:18080/actuator/health; if ($h.status -ne "UP") { throw "Backend unhealthy" }; (Invoke-WebRequest -UseBasicParsing http://localhost:3000/).StatusCode'
                     }
                 }
             }
