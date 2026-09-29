@@ -1,0 +1,31 @@
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { CalendarDays, FileUp, Info, MapPin, Send, ShieldCheck } from 'lucide-react'
+import { api } from '../api'
+import { Alert, PageHeader } from '../components/Ui'
+
+const initial = { categoryId:'', title:'', description:'', incidentDate:new Date().toISOString().slice(0,10), incidentTime:'12:00', location:'', city:'', area:'', latitude:'', longitude:'', suspectInformation:'', witnessInformation:'', evidenceDescription:'', additionalRemarks:'' }
+
+export default function ReportForm() {
+  const [form,setForm]=useState(initial), [categories,setCategories]=useState([]), [file,setFile]=useState(null), [error,setError]=useState(''), [fields,setFields]=useState({}), [saving,setSaving]=useState(false)
+  const navigate=useNavigate()
+  useEffect(()=>{api('/categories').then(setCategories).catch(e=>setError(e.message))},[])
+  const change=e=>setForm({...form,[e.target.name]:e.target.value})
+  const submit=async e=>{e.preventDefault();setSaving(true);setError('');setFields({});try{const payload={...form,categoryId:Number(form.categoryId),latitude:form.latitude?Number(form.latitude):null,longitude:form.longitude?Number(form.longitude):null};const report=await api('/reports',{method:'POST',body:JSON.stringify(payload)});if(file){const data=new FormData();data.append('file',file);await api(`/reports/${report.publicId}/evidence`,{method:'POST',body:data})}navigate(`/app/reports/${report.publicId}`,{state:{created:true}})}catch(err){setError(err.message);setFields(err.fields||{})}finally{setSaving(false)}}
+  return <><PageHeader eyebrow="Citizen reporting" title="Report an incident" subtitle="Provide accurate information. Required fields are marked with an asterisk." />{error&&<Alert>{error}</Alert>}<form className="report-form" onSubmit={submit}>
+    <section className="panel form-section"><div className="form-section-head"><span><Info/></span><div><h2>Incident essentials</h2><p>Tell us what happened and when it occurred.</p></div></div><div className="form-grid">
+      <Field label="Crime category *" error={fields.categoryId}><select name="categoryId" value={form.categoryId} onChange={change} required><option value="">Select a category</option>{categories.map(c=><option value={c.id} key={c.id}>{c.name}</option>)}</select></Field>
+      <Field label="Incident title *" error={fields.title} wide><input name="title" value={form.title} onChange={change} minLength="5" maxLength="180" required placeholder="Brief, clear summary of the incident"/></Field>
+      <Field label="Description *" error={fields.description} full><textarea name="description" value={form.description} onChange={change} minLength="20" maxLength="5000" required rows="6" placeholder="Describe what happened, the sequence of events, and any relevant details."/><small>{form.description.length}/5000 characters</small></Field>
+      <Field label="Incident date *" error={fields.incidentDate}><div className="input-icon"><CalendarDays/><input type="date" name="incidentDate" max={new Date().toISOString().slice(0,10)} value={form.incidentDate} onChange={change} required/></div></Field>
+      <Field label="Incident time *" error={fields.incidentTime}><input type="time" name="incidentTime" value={form.incidentTime} onChange={change} required/></Field>
+    </div></section>
+    <section className="panel form-section"><div className="form-section-head"><span><MapPin/></span><div><h2>Location details</h2><p>Specific location information helps responders assess the report.</p></div></div><div className="form-grid">
+      <Field label="Location / address *" error={fields.location} wide><input name="location" value={form.location} onChange={change} required placeholder="Street, landmark, building or junction"/></Field><Field label="City *" error={fields.city}><input name="city" value={form.city} onChange={change} required placeholder="City"/></Field><Field label="Area / district"><input name="area" value={form.area} onChange={change} placeholder="Area or district"/></Field><Field label="Latitude"><input type="number" step="any" name="latitude" value={form.latitude} onChange={change} placeholder="Optional"/></Field><Field label="Longitude"><input type="number" step="any" name="longitude" value={form.longitude} onChange={change} placeholder="Optional"/></Field>
+    </div></section>
+    <section className="panel form-section"><div className="form-section-head"><span><ShieldCheck/></span><div><h2>People and evidence</h2><p>Add only information you believe is relevant to the incident.</p></div></div><div className="form-grid"><Field label="Suspect information"><textarea name="suspectInformation" value={form.suspectInformation} onChange={change} rows="4" placeholder="Appearance, clothing, direction of travel, vehicle…"/></Field><Field label="Witness information"><textarea name="witnessInformation" value={form.witnessInformation} onChange={change} rows="4" placeholder="Witness count or relevant statement details…"/></Field><Field label="Evidence description" full><textarea name="evidenceDescription" value={form.evidenceDescription} onChange={change} rows="3" placeholder="Describe photos, recordings, documents, or physical evidence."/></Field><Field label="Evidence file" full><label className="upload-box"><FileUp/><b>{file?file.name:'Choose a supporting file'}</b><span>Maximum 10 MB. Avoid uploading unnecessary personal data.</span><input type="file" onChange={e=>setFile(e.target.files[0]||null)}/></label></Field><Field label="Additional remarks" full><textarea name="additionalRemarks" value={form.additionalRemarks} onChange={change} rows="3" placeholder="Anything else the reviewing team should know?"/></Field></div></section>
+    <div className="submission-bar"><div><ShieldCheck/><span><b>Your report is recorded securely.</b><small>You will receive a unique tracking ID immediately after submission.</small></span></div><button className="button button-primary button-large" disabled={saving}>{saving?'Submitting report…':<>Submit incident report <Send size={18}/></>}</button></div>
+  </form></>
+}
+function Field({label,error,wide,full,children}){return <label className={`field ${wide?'field-wide':''} ${full?'field-full':''}`}><span>{label}</span>{children}{error&&<em>{error}</em>}</label>}
+

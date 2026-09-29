@@ -1,0 +1,13 @@
+---
+- name: Configure and deploy CrimeWatch
+  hosts: crimewatch_hosts
+  gather_facts: true
+  vars:
+    crimewatch_project_dir: "{{ lookup('env', 'CRIMEWATCH_PROJECT_DIR') | default(playbook_dir + '/..', true) }}"
+    crimewatch_deploy_dir: "{{ ansible_facts['env']['HOME'] }}/crimewatch-deploy"
+    crimewatch_postgres_password: "{{ lookup('env', 'POSTGRES_PASSWORD') | default('crimewatch-local-password', true) }}"
+    crimewatch_jwt_secret: "{{ lookup('env', 'JWT_SECRET') | default('crimewatch-local-jwt-secret-change-before-sharing', true) }}"
+  roles:
+    - docker_host
+    - crimewatch_deploy
+

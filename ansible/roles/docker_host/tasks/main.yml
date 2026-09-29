@@ -1,0 +1,33 @@
+---
+- name: Check whether Docker is available
+  ansible.builtin.command: docker version --format "{{ '{{' }}.Server.Version{{ '}}' }}"
+  register: docker_check
+  changed_when: false
+  failed_when: false
+
+- name: Install Docker packages when Docker is absent
+  become: true
+  when: docker_check.rc != 0
+  block:
+    - name: Refresh apt package information
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install Docker engine and Compose plugin
+      ansible.builtin.apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+        state: present
+
+    - name: Enable and start Docker
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+- name: Verify Docker Compose
+  ansible.builtin.command: docker compose version
+  changed_when: false
+

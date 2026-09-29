@@ -1,0 +1,6 @@
+[crimewatch_hosts]
+localhost ansible_connection=local
+
+[crimewatch_hosts:vars]
+ansible_python_interpreter=/usr/bin/python3
+

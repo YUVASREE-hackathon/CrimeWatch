@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="4" failures="0" errors="0" time="0.2200307">
+    <testsuite name="src/test/App.test.jsx" timestamp="2026-09-29T05:35:11.742Z" hostname="Thiraj-Laptop" tests="4" failures="0" errors="0" skipped="0" time="0.2200307">
+        <testcase classname="src/test/App.test.jsx" name="CrimeWatch public experience &gt; renders the professional landing page with primary reporting action" time="0.1507415">
+        </testcase>
+        <testcase classname="src/test/App.test.jsx" name="CrimeWatch public experience &gt; offers all three synthetic demo identities on login" time="0.0314223">
+        </testcase>
+        <testcase classname="src/test/App.test.jsx" name="CrimeWatch public experience &gt; fills demo credentials when a role is selected" time="0.0239442">
+        </testcase>
+        <testcase classname="src/test/App.test.jsx" name="route protection &gt; redirects unauthenticated workspace access to login" time="0.0127682">
+        </testcase>
+    </testsuite>
+</testsuites>
