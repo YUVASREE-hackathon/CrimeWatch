@@ -15,6 +15,7 @@ pipeline {
         COMPOSE_PROJECT_NAME = 'crimewatch'
         IMAGE_TAG = "build-${BUILD_NUMBER}"
         DOCKER_EXE = 'C:\\Users\\thira\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
+        DOCKER_COMPOSE_EXE = 'C:\\Users\\thira\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe'
     }
 
     stages {
@@ -28,7 +29,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'git --version && java --version && mvn --version && node --version && npm --version && docker version && docker compose version'
                     } else {
-                        bat 'git --version && java --version && mvn --version && node --version && npm --version && "%DOCKER_EXE%" version && "%DOCKER_EXE%" compose version'
+                        bat 'git --version && java --version && mvn --version && node --version && npm --version && "%DOCKER_EXE%" version && "%DOCKER_COMPOSE_EXE%" version'
                     }
                 }
             }
@@ -59,7 +60,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                script { isUnix() ? sh('docker compose build --pull') : bat('"%DOCKER_EXE%" compose build --pull') }
+                script { isUnix() ? sh('docker compose build --pull') : bat('"%DOCKER_COMPOSE_EXE%" build --pull') }
             }
         }
 
